@@ -77,7 +77,7 @@ class App extends React.Component {
             this.state.recipes.length > 0 ? this.state.recipes.map((recipe)=> {
               return(
                 <ul>
-                <li key = {recipe.name}>
+                <li aria-label = {recipe.name}>
                   {recipe.name}
                   </li>
               </ul>
