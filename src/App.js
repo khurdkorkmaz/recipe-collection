@@ -1,12 +1,13 @@
 // App.js
 import React from 'react';
+import Recipe from './recipe';
 
 class App extends React.Component {
   state = {
     isAddRecipeFormDisplayed: false,
     recipes: [],
     newRecipeName: "",
-    newRecipeInstructions: ""
+    newRecipeInstructions: "",
   }
 
   handleChange = (event) => {
@@ -16,24 +17,12 @@ class App extends React.Component {
     this.setState({[name]: target.value});
   }
   
-  handleRecipeInstructionsChange = (event) => {
-    const value = event.target.value;
-  
-    this.setState({newRecipeInstructions: value});
-  }
-  
-  handleRecipeNameChange = (event) => {
-    const value = event.target.value;
-  
-    this.setState({newRecipeName: value});
-  }
-
   submitRecipe = (event) => {
     event.preventDefault()
     let tempArray = [...this.state.recipes];
     tempArray.push({
       name: this.state.newRecipeName,
-      instructions :this.state.newRecipeInstructions
+      instructions :this.state.newRecipeInstructions,
     })
     this.setState({recipes: tempArray})
   }
@@ -41,6 +30,7 @@ class App extends React.Component {
   toggleAddRecipeForm = () => {
     this.setState({isAddRecipeFormDisplayed: !this.state.isAddRecipeFormDisplayed})
   }
+
 
   
 
@@ -76,11 +66,7 @@ class App extends React.Component {
           {
             this.state.recipes.length > 0 ? this.state.recipes.map((recipe)=> {
               return(
-                <ul>
-                <li aria-label = {recipe.name}>
-                  {recipe.name}
-                  </li>
-              </ul>
+                <Recipe key={recipe.name} data={recipe}/>
               )
             }) :
               <p>There are no recipes to list.</p>

@@ -84,3 +84,51 @@ test('displays multiple recipes', async () => {
   expect(screen.getByText(secondRecipeName)).toBeInTheDocument();
 
 })
+
+test('Can click a recipe and see instructions', async () => {
+  const {instructionsInput, nameInput, submitButton} = setup();
+  const recipeName = "Lean Pockets"
+  const recipeInstructions = "place in toaster oven on 350 for 45 minutes"
+
+  await userEvent.type(instructionsInput, recipeInstructions)
+  await userEvent.type(nameInput, recipeName)
+  userEvent.click(submitButton);
+  userEvent.clear(screen.getByLabelText('newRecipeName'))
+  userEvent.clear(screen.getByLabelText('newRecipeInstructions'))
+
+  userEvent.click(screen.getByTestId(recipeName));
+  //expect(screen.getByRole('listitem')).toBeInTheDocument();
+  expect(screen.getByText(recipeInstructions)).toBeInTheDocument();
+})
+
+test('There should be an edit button to change the Recipe Name', async () => {
+  const {instructionsInput, nameInput, submitButton} = setup();
+  const recipeName = "Lean Pockets"
+  const recipeInstructions = "place in toaster oven on 350 for 45 minutes"
+
+  await userEvent.type(instructionsInput, recipeInstructions)
+  await userEvent.type(nameInput, recipeName)
+  userEvent.click(submitButton);
+  userEvent.clear(screen.getByLabelText('newRecipeName'))
+  userEvent.clear(screen.getByLabelText('newRecipeInstructions'))
+
+  //userEvent.click(screen.getByTestId(`${recipeName}-Edit-Button`));
+  //expect(screen.getByRole('listitem')).toBeInTheDocument();
+  expect(screen.getByTestId(`${recipeName}-Edit-Button`)).toBeInTheDocument();
+})
+
+test('There should be an edit button to change the Recipe Name', async () => {
+  const {instructionsInput, nameInput, submitButton} = setup();
+  const recipeName = "Lean Pockets"
+  const recipeInstructions = "place in toaster oven on 350 for 45 minutes"
+
+  await userEvent.type(instructionsInput, recipeInstructions)
+  await userEvent.type(nameInput, recipeName)
+  userEvent.click(submitButton);
+  userEvent.clear(screen.getByLabelText('newRecipeName'))
+  userEvent.clear(screen.getByLabelText('newRecipeInstructions'))
+
+  //userEvent.click(screen.getByTestId(`${recipeName}-Edit-Button`));
+  //expect(screen.getByRole('listitem')).toBeInTheDocument();
+  expect(screen.getByTestId(`${recipeName}-Instruction-Edit-Button`)).toBeInTheDocument();
+})
